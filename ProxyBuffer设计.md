@@ -16,13 +16,19 @@ mycat2.0 设计前后端读写共享同一个buffer。该buffer是可重用的,�
 |---|----|-----|------
 |1|writeIndex|0|从channel 向 buffer  写入数据的开始位置。
 |2|readMark|0|从buffer  向 channel 写入数据的开始位置。
-|3|readIndex|0|从buffer  想 channel 写入数据的结束位置。
+|3|readIndex|0|从buffer 向 channel 写入数据的结束位置。
 
 ### 两个状态
 |#|字段|默认值|说明|
 |---|----|------|------
-|1|inReading|false|当前buffer 的读写状态。有两个值 false 代表写入状态;true 代表读取状态。
+|1|inReading|false|当前buffer 的读写状态。有两个状态 false 代表写入状态;true 代表读取状态。
 |2|frontUsing|false|当前buffer 是谁在使用。false 代表后端在使用;true 代表前端在使用。
+
+|#|场景|状态|数据范围|变化指针|
+|--|---|----|-------|-----
+|1|从channel 向 buffer 写入数据|写入|writeIndex---capacity|writeIndex 增加
+|2|从buffer 读取数据 进行逻辑处理|可读|readIndex---writeIndex|readIndex  增加
+|3|将buffer数据写入到channel中|可读|readMark --- readIndex|readMark  增加
 
 #### 第一个场景 从 channel 向 proxybuffer 写入数据。
     1. proxybuffer 读写状态。
@@ -67,18 +73,23 @@ mycat2.0 设计前后端读写共享同一个buffer。该buffer是可重用的,�
        每次从proxybuffer读取数据写入到channel前，
        判断当前proxybuffer 已读是否大于总容量的2/3（readIndex > buffer.capacity() * 2 / 3).
        如果大于 2/3 进行一次 compact。 
-#### 总结 
-
-buffer 基本使用场景
-
-|#|场景|状态|数据范围|变化指针|
-|--|---|----|-------|-----
-|1|从channel 向 buffer 写入数据|写入|writeIndex---capacity|writeIndex 增加
-|2|从buffer 读取数据 进行逻辑处理|可读|readIndex---writeIndex|readIndex  增加
-|3|将buffer数据写入到channel中|可读|readMark --- readIndex|readMark  增加
 
 ## 二、mycat 使用场景
 
-### 2.1 只前端读写、只后端读写场景
-### 2.2 结果集透传 场景
+### 2.1 透传 场景
+    以select 结果集透传场景为例。透传基本流程为： 
+        1. 客户端发送 select语句给mycat 前端。
+        2. 前端收到数据后透传给后端mysql。
+        3. 后端收到mysql 响应结果集，并将数据透传给前端。
+        4. 后端确认结果集传输完成后，连接进入空闲状态（假设当前查询没有开启事务）。
+    涉及问题：
+        1. 流量匹配问题。
+        2. 共享buffer 读写问题。
+        3. 共享buffer 控制权问题。
+        3. 异常处理问题。
+
+       
+### 2.2 只前端读写、只后端读写场景
+        只前端读写、只后端读写场景 相当于 基本使用场景1、2 
+
        
