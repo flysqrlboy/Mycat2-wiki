@@ -75,6 +75,8 @@ mycat2.0 设计前后端读写共享同一个buffer。该buffer是可重用的,�
 |3|channel 从buffer 读取数据时|可读|readMark --- readIndex|readMark  增加
 
 ## 二、mycat 使用场景
-### 2.1 透传 场景
-### 2.2 只前端读写、只后端读写场景
-### 2.3 没有读取数据，向buffer中写入数据后 直接 write 到 channel的场景
+
+### 2.1 只前端读写、只后端读写场景
+### 2.2 没有读取数据，向buffer中写入数据后 直接 write 到 channel的场景
+### 2.3 结果集透传 场景
+       
