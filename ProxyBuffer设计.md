@@ -65,7 +65,7 @@ mycat2.0 设计前后端读写共享同一个buffer。该buffer是可重用的,�
        每读取一次数据，readIndex就增加相应的长度。
        当 readIndex == writeIndex 时,代表本次写入到proxybuffer中的数据，全部读取完成。
 
-   `注： 在遇到半包不参与透传时, 会出现 readIndex < writeIndex 时，数据就已经全部读取完成。` 
+   `注： 在遇到半包不参与透传时, 会出现数据就已经全部读取完成后， readIndex < writeIndex 的情况。` 
 
 ![ ](https://github.com/yanjunli/tcp-proxy/blob/master/doc/images/readbuffer1.png)
 ![ ](https://github.com/yanjunli/tcp-proxy/blob/master/doc/images/readbuffer2.png)
