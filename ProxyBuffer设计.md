@@ -69,10 +69,10 @@ mycat2.0 设计前后端读写共享同一个buffer。该buffer是可重用的,�
        如果大于 2/3 进行一次 compact。 
 #### 总结
 |#|场景|状态|数据范围|变化指针|
-|--|---|----|-----|-----
-|1|从channel 向 buffer 写入数据|写入状态|writeIndex---capacity|每次写入writeIndex 增加
-|2|从buffer 读取数据 进行逻辑处理时|可读状态|readIndex---writeIndex|每次读取readIndex  增加
-|3|channel 从buffer 读取数据时|可读状态|readMark --- readIndex|每次读取 readMark  增加
+|--|---|----|------|-----
+|1|从channel 向 buffer 写入数据|写入状态|writeIndex---capacity|writeIndex 增加
+|2|从buffer 读取数据 进行逻辑处理|可读状态|readIndex---writeIndex|readIndex  增加
+|3|channel 从buffer 读取数据时|可读状态|readMark --- readIndex|readMark  增加
 
 ## 二、mycat 使用场景
 ### 2.1 透传 场景
