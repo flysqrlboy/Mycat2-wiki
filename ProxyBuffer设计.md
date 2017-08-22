@@ -48,7 +48,7 @@ mycat2.0 设计前后端读写共享同一个buffer。该buffer是可重用的,�
        如果大于 1/3 进行一次 compact。 
 
 ![ ](https://github.com/yanjunli/tcp-proxy/blob/master/doc/images/proxybuffer_init.png)
-![ ](https://github.com/yanjunli/tcp-proxy/blob/master/doc/images/channel_to_buffer1.png)
+![ ](https://github.com/yanjunli/tcp-proxy/blob/master/doc/images/read_to_buffer1.png)
 
 #### 第二个场景 从 buffer  中读取数据 进行逻辑处理。
     1. proxybuffer 读写状态。
@@ -61,7 +61,8 @@ mycat2.0 设计前后端读写共享同一个buffer。该buffer是可重用的,�
        每读取一次数据，readIndex就增加相应的长度。
        当 readIndex == writeIndex 时,代表本次写入到proxybuffer中的数据，全部读取完成。
 
-![ ](https://github.com/yanjunli/tcp-proxy/blob/master/doc/images/read_buffer1.png)
+![ ](https://github.com/yanjunli/tcp-proxy/blob/master/doc/images/readbuffer1.png)
+![ ](https://github.com/yanjunli/tcp-proxy/blob/master/doc/images/readbuffer2.png)
 
 #### 第三个场景 channel 从 buffer 中读取数据。
     1. proxybuffer 读写状态。
@@ -83,6 +84,7 @@ mycat2.0 设计前后端读写共享同一个buffer。该buffer是可重用的,�
        如果大于 2/3 进行一次 compact。 
 
 ![ ](https://github.com/yanjunli/tcp-proxy/blob/master/doc/images/read_to_channel1.png)
+![ ](https://github.com/yanjunli/tcp-proxy/blob/master/doc/images/read_to_channel2.png)
 
 ## 二、mycat 使用场景
 
