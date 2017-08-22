@@ -25,7 +25,8 @@ mycat2.0 设计前后端读写共享同一个buffer。该buffer是可重用的,�
 
 #### 第一个场景 从 channel 向 proxybuffer 写入数据。
     1. proxybuffer 读写状态。
-       从channel 读取数据写入到 ProxyBuffer时, channel 为可读状态,proxyBuffer 处于写入状态,即 inReading= false;
+       从channel 读取数据写入到 ProxyBuffer时, channel 为可读状态,
+       proxyBuffer 处于写入状态,即 inReading= false;
     2. 写入的开始结束位置。
        始终是从 writeIndex 开始向proxyBuffer 中写入数据。
        写入结束位置始终是buffer 的capacity。
