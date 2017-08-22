@@ -72,7 +72,7 @@ mycat2.0 设计前后端读写共享同一个buffer。该buffer是可重用的,�
 |--|---|----|-------|-----
 |1|从channel 向 buffer 写入数据|写入|writeIndex---capacity|writeIndex 增加
 |2|从buffer 读取数据 进行逻辑处理|可读|readIndex---writeIndex|readIndex  增加
-|3|channel 从buffer 读取数据时|可读|readMark --- readIndex|readMark  增加
+|3|将buffer数据写入到channel中|可读|readMark --- readIndex|readMark  增加
 
 ## 二、mycat 使用场景
 
