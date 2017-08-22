@@ -66,3 +66,7 @@ mycat2.0 设计前后端读写共享同一个buffer。该buffer是可重用的,�
        每次从proxybuffer读取数据写入到channel前，
        判断当前proxybuffer 已读是否大于总容量的2/3（readIndex > buffer.capacity() * 2 / 3).
        如果大于 2/3 进行一次 compact。 
+## 二、mycat 使用场景
+### 2.1 透传 场景
+### 2.2 只前端读写、只后端读写场景
+### 2.3 没有读取数据，向buffer中写入数据后 直接 write 到 channel的场景
