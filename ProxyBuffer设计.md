@@ -11,14 +11,12 @@ mycat2.0 设计前后端读写共享同一个buffer。该buffer是可重用的,�
 注： 以上三个场景区分前端和后端。即：当前buffer 是前端操作还是后端操作。
 
 为满足以上三个场景,设计了ProxyBuffer. ProxyBuffer 共有三个指针,两个状态。
-### 三个指针
+### 三个指针  `注：第二个指针 readMark 指针存在的目的在于 减少 compact 的次数。`
 |#|字段|默认值|说明|
 |---|----|-----|------
 |1|writeIndex|0|从channel 向 buffer  写入数据的开始位置。
 |2|readMark|0|从buffer  向 channel 写入数据的开始位置。
 |3|readIndex|0|从buffer 向 channel 写入数据的结束位置。
-
-注：第二个指针 readMark 指针存在的目的在于 减少 compact 的次数。
 
 ### 两个状态
 |#|字段|默认值|说明|
@@ -34,6 +32,7 @@ mycat2.0 设计前后端读写共享同一个buffer。该buffer是可重用的,�
 |2|从buffer 读取数据 进行逻辑处理|可读|readIndex---writeIndex|readIndex  增加
 |3|将buffer数据写入到channel中|可读|readMark --- readIndex|readMark  增加
 
+
 #### 第一个场景 从 channel 向 proxybuffer 写入数据。
     1. proxybuffer 读写状态。
        从channel 读取数据写入到 ProxyBuffer时, channel 为可读状态,
@@ -48,6 +47,9 @@ mycat2.0 设计前后端读写共享同一个buffer。该buffer是可重用的,�
        判断当前proxybuffer 容量是否大于总容量的1/3（writeIndex > buffer.capacity() * 1 / 3).
        如果大于 1/3 进行一次 compact。 
 
+![ ](https://github.com/yanjunli/tcp-proxy/blob/master/doc/images/proxybuffer_init.png)
+![ ](https://github.com/yanjunli/tcp-proxy/blob/master/doc/images/channel_to_buffer1.png)
+
 #### 第二个场景 从 buffer  中读取数据 进行逻辑处理。
     1. proxybuffer 读写状态。
        从 channel 中读取数据到proxybuffer后，proxybuffer 进入可读状态，即 inReading = true;
@@ -58,6 +60,8 @@ mycat2.0 设计前后端读写共享同一个buffer。该buffer是可重用的,�
     3. readIndex 指针的移动
        每读取一次数据，readIndex就增加相应的长度。
        当 readIndex == writeIndex 时,代表本次写入到proxybuffer中的数据，全部读取完成。
+
+![ ](https://github.com/yanjunli/tcp-proxy/blob/master/doc/images/read_buffer1.png)
 
 #### 第三个场景 channel 从 buffer 中读取数据。
     1. proxybuffer 读写状态。
@@ -77,6 +81,8 @@ mycat2.0 设计前后端读写共享同一个buffer。该buffer是可重用的,�
        每次从proxybuffer读取数据写入到channel前，
        判断当前proxybuffer 已读是否大于总容量的2/3（readIndex > buffer.capacity() * 2 / 3).
        如果大于 2/3 进行一次 compact。 
+
+![ ](https://github.com/yanjunli/tcp-proxy/blob/master/doc/images/read_to_channel1.png)
 
 ## 二、mycat 使用场景
 
