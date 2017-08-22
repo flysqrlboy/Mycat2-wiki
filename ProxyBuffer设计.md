@@ -15,6 +15,7 @@ mycat2.0 设计前后端读写共享同一个buffer。该buffer是可重用的,�
 
 `注：第二个指针 readMark 指针存在的目的在于 减少 compact 的次数。`
 
+
 |#|字段|默认值|说明|
 |---|----|-----|------
 |1|writeIndex|0|从channel 向 buffer  写入数据的开始位置。
