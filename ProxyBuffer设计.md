@@ -68,9 +68,10 @@ mycat2.0 设计前后端读写共享同一个buffer。该buffer是可重用的,�
        判断当前proxybuffer 已读是否大于总容量的2/3（readIndex > buffer.capacity() * 2 / 3).
        如果大于 2/3 进行一次 compact。 
 #### 总结
-     从channel 向 buffer 写入数据时, buffer 处于写入状态。 写入buffer范围是 writeIndex---capacity， 每次写入writeIndex 增加。
-     从buffer 读取数据 进行逻辑处理时, buffer 处于可读状态。读取buffer范围是 readIndex---writeIndex，每次读取readIndex  增加。
-     channel 从buffer 读取数据时,buffer 处于可读状态。     读取数据范围 readMark --- readIndex,     每次读取 readMark  增加。
+|#|场景|buffer状态|数据范围|变化指针|
+|---|----|------|------|------
+|1|从channel 向 buffer 写入数据|写入状态|writeIndex---capacity|每次写入writeIndex 增加
+
 
 ## 二、mycat 使用场景
 ### 2.1 透传 场景
