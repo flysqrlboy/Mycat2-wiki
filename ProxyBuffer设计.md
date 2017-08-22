@@ -86,22 +86,4 @@ mycat2.0 设计前后端读写共享同一个buffer。该buffer是可重用的,�
 ![ ](https://github.com/yanjunli/tcp-proxy/blob/master/doc/images/read_to_channel1.png)
 ![ ](https://github.com/yanjunli/tcp-proxy/blob/master/doc/images/read_to_channel2.png)
 
-## 二、mycat 使用场景
-
-### 2.1 透传 场景
-    以select 结果集透传场景为例。透传基本流程为： 
-        1. 客户端发送 select语句给mycat 前端。
-        2. 前端收到数据后透传给后端mysql。
-        3. 后端收到mysql 响应结果集，并将数据透传给前端。
-        4. 后端确认结果集传输完成后，连接进入空闲状态（假设当前查询没有开启事务）。
-    涉及问题：
-        1. 流量匹配问题。
-        2. 共享buffer 读写问题。
-        3. 共享buffer 控制权问题。
-        3. 异常处理问题。
-
-       
-### 2.2 只前端读写、只后端读写场景
-        只前端读写、只后端读写场景 相当于 基本使用场景1、2 
-
-       
+      
