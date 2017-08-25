@@ -51,8 +51,8 @@ mycat2.0 设计前后端读写共享同一个buffer。该buffer是可重用的,�
        判断当前proxybuffer 容量是否大于总容量的1/3（writeIndex > buffer.capacity() * 1 / 3).
        如果大于 1/3 进行一次 compact。 
 
-![ ](https://github.com/MyCATApache/tcp-proxy/tree/master/doc/images/proxybuffer_init.png)
-![ ](https://github.com/MyCATApache/tcp-proxy/tree/master/doc/images/read_to_buffer1.png)
+![ ](https://raw.githubusercontent.com/MyCATApache/tcp-proxy/master/doc/images/proxybuffer_init.png)
+![ ](https://raw.githubusercontent.com/MyCATApache/tcp-proxy/master/doc/images/read_to_buffer1.png)
 
 #### 第二个场景 从 buffer  中读取数据 进行逻辑处理。
     1. proxybuffer 读写状态。
@@ -67,8 +67,8 @@ mycat2.0 设计前后端读写共享同一个buffer。该buffer是可重用的,�
 
    `注： 在遇到半包不参与透传时, 会出现数据就已经全部读取完成后， readIndex < writeIndex 的情况。` 
 
-![ ](https://github.com/MyCATApache/tcp-proxy/tree/master/doc/images/readbuffer1.png)
-![ ](https://github.com/MyCATApache/tcp-proxy/tree/master/doc/images/readbuffer2.png)
+![ ](https://raw.githubusercontent.com/MyCATApache/tcp-proxy/master/doc/images/readbuffer1.png)
+![ ](https://raw.githubusercontent.com/MyCATApache/tcp-proxy/master/doc/images/readbuffer2.png)
 
 #### 第三个场景 channel 从 buffer 中读取数据。
     1. proxybuffer 读写状态。
@@ -89,7 +89,7 @@ mycat2.0 设计前后端读写共享同一个buffer。该buffer是可重用的,�
        判断当前proxybuffer 已读是否大于总容量的2/3（readIndex > buffer.capacity() * 2 / 3).
        如果大于 2/3 进行一次 compact。 
 
-![ ](https://github.com/MyCATApache/tcp-proxy/tree/master/doc/images/read_to_channel1.png)
-![ ](https://github.com/MyCATApache/tcp-proxy/tree/master/doc/images/read_to_channel2.png)
+![ ](https://raw.githubusercontent.com/MyCATApache/tcp-proxy/master/doc/images/read_to_channel1.png)
+![ ](https://raw.githubusercontent.com/MyCATApache/tcp-proxy/master/doc/images/read_to_channel2.png)
 
       
