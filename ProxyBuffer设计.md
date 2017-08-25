@@ -55,6 +55,9 @@ mycat2.0 设计前后端读写共享同一个buffer。该buffer是可重用的,�
 ![ ](https://raw.githubusercontent.com/MyCATApache/tcp-proxy/master/doc/images/read_to_buffer1.png)
 
 #### 第二个场景 从 buffer  中读取数据 进行逻辑处理。
+
+    `注： 在遇到半包不参与透传时, 会出现数据就已经全部读取完成后， readIndex < writeIndex 的情况。`
+
     1. proxybuffer 读写状态。
        从 channel 中读取数据到proxybuffer后，proxybuffer 进入可读状态，即 inReading = true;
     2. 读取数据的开始结束位置。
@@ -65,12 +68,13 @@ mycat2.0 设计前后端读写共享同一个buffer。该buffer是可重用的,�
        每读取一次数据，readIndex就增加相应的长度。
        当 readIndex == writeIndex 时,代表本次写入到proxybuffer中的数据，全部读取完成。
 
-   `注： 在遇到半包不参与透传时, 会出现数据就已经全部读取完成后， readIndex < writeIndex 的情况。` 
-
 ![ ](https://raw.githubusercontent.com/MyCATApache/tcp-proxy/master/doc/images/readbuffer1.png)
 ![ ](https://raw.githubusercontent.com/MyCATApache/tcp-proxy/master/doc/images/readbuffer2.png)
 
 #### 第三个场景 channel 从 buffer 中读取数据。
+
+    `注： 在遇到网络阻塞等情况时, 会出现数据一次传不完的情况，即： readMark < readIndex。这时注册可写事件，下次写readMark-readIndex 之间的数据`
+ 
     1. proxybuffer 读写状态。
        向 channel 写入数据时,当前proxybuffer 需要确保进入可读状态，即 inReading = true;
     2. 写入到channel中数据的开始结束位置。
@@ -85,7 +89,7 @@ mycat2.0 设计前后端读写共享同一个buffer。该buffer是可重用的,�
     4. 读写状态转换
        数据全部写完后,proxybuffer 状态 转换为 可写状态。即  inReading = false;
     5. proxybuffer 压缩。
-       每次从proxybuffer读取数据写入到channel前，
+       每次从proxybuffer读取数据写入到channel后，
        判断当前proxybuffer 已读是否大于总容量的2/3（readIndex > buffer.capacity() * 2 / 3).
        如果大于 2/3 进行一次 compact。 
 
