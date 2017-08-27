@@ -10,7 +10,7 @@ mycat2.0 设计前后端读写共享同一个buffer。该buffer是可重用的,�
 
 注： 以上三个场景区分前端和后端。即：当前buffer 是前端操作还是后端操作。
 
-为满足以上三个场景,设计了ProxyBuffer. ProxyBuffer 共有三个指针,两个状态。
+为满足以上三个场景,设计了ProxyBuffer. ProxyBuffer 共有三个指针,一个状态。
 ### 三个指针  
 
 `注：第二个指针 readMark 指针存在的目的在于 减少 compact 的次数。`
