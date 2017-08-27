@@ -22,11 +22,10 @@ mycat2.0 设计前后端读写共享同一个buffer。该buffer是可重用的,�
 |2|readMark|0|从buffer  向 channel 写入数据的开始位置。
 |3|readIndex|0|从buffer 向 channel 写入数据的结束位置。
 
-### 两个状态
+### 一个状态
 |#|字段|默认值|说明|
 |---|----|------|------
 |1|inReading|false|当前buffer 的读写状态。有两个状态 false 代表写入状态;true 代表读取状态。
-|2|frontUsing|false|当前buffer 是谁在使用。false 代表后端在使用;true 代表前端在使用。
 
 #### 三种场景对应 buffer状态、数据范围 及变化指针
 
