@@ -55,7 +55,7 @@ mycat2.0 设计前后端读写共享同一个buffer。该buffer是可重用的,�
 
 #### 第二个场景 从 buffer  中读取数据 进行逻辑处理。
 
-    `注： 在遇到半包不参与透传时, 会出现数据就已经全部读取完成后， readIndex < writeIndex 的情况。`
+`注： 在遇到半包不参与透传时, 会出现数据就已经全部读取完成后， readIndex < writeIndex 的情况。`
 
     1. proxybuffer 读写状态。
        从 channel 中读取数据到proxybuffer后，proxybuffer 进入可读状态，即 inReading = true;
@@ -72,7 +72,8 @@ mycat2.0 设计前后端读写共享同一个buffer。该buffer是可重用的,�
 
 #### 第三个场景 channel 从 buffer 中读取数据。
 
-    `注： 在遇到网络阻塞等情况时, 会出现数据一次传不完的情况，即： readMark < readIndex。这时注册可写事件，下次写readMark-readIndex 之间的数据`
+ `注： 在遇到网络阻塞等情况时, 会出现数据一次传不完的情况，即： readMark < readIndex。这时注册可写事件，下次写readMark-readIndex 之间的数据`
+
  
     1. proxybuffer 读写状态。
        向 channel 写入数据时,当前proxybuffer 需要确保进入可读状态，即 inReading = true;
