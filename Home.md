@@ -53,9 +53,9 @@ Mycat 2.0 alpha 版
 
 - sharding-rule.yml：分片规则
 
+- actions.yml：动态注解类配置
 
-
-
+- annotations.yml：动态注解规则配置
 
 # 启动运行
   mycat2.0  基于 java 8 开发，需要 java8 运行环境。
