@@ -61,7 +61,7 @@ Mycat 2.0 alpha 版
   mycat2.0  基于 java 8 开发，需要 java8 运行环境。
 
 ## 一、下载release 包运行
-   当前已发布 mycat2.0 alpha 版本。
+   当前已发布 mycat2.0 alpha 版本。  
    可以在 https://github.com/MyCATApache/tcp-proxy/releases 下，下载 二进制包 运行。
 
 ## 二、本地调试
