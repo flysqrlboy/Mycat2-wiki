@@ -139,12 +139,16 @@ Mycat 2.0 alpha 版
 因为 /* mycat: */   格式注解  会被命令行及客户端工具过滤掉，不会发送给mycat server。所以，在命令行及客户端工具中使用注解时，可以使用第二种注解。
 
 1. 读写分离注解
+
    `/* mycat:balance type=master/slave */ `
+
    `/*! mycat:balance type=master/slave */`
 
 2. 结果集缓存注解
-  `/* mycat:cacheresult  cache_time=1800 auto_refresh=true access_count=60 */`
- ` /*! mycat:cacheresult  cache_time=1800 auto_refresh=true access_count=60 */`
+
+   `/* mycat:cacheresult  cache_time=1800 auto_refresh=true access_count=60 */`
+
+   `/*! mycat:cacheresult  cache_time=1800 auto_refresh=true access_count=60 */`
 
 ### 6.管理命令
 
