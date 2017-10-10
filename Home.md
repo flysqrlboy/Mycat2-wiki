@@ -58,9 +58,13 @@ Mycat 2.0 alpha 版
 
 
 # 启动运行
+  mycat2.0  基于 java 8 开发，需要 java8 运行环境。
 
+## 一、下载release 包运行
+   当前已发布 mycat2.0 alpha 版本。
+   可以在 https://github.com/MyCATApache/tcp-proxy/releases 下，下载 二进制包 运行。
 
-## 一、本地调试
+## 二、本地调试
 
 配置文件只能有一个，在IDEA中调试可以设置启动参数，启动参数优先级比配置文件高，会替换掉配置文件的参数，现支持的启动参数：
 
@@ -76,7 +80,7 @@ Mycat 2.0 alpha 版
 
 
 
-## 二、编译运行
+## 三、编译运行
 
 ### 1. 下载源码并编译
 
