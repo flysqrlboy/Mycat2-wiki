@@ -132,32 +132,4 @@ Mycat 2.0 alpha 版
 
 1. conf目录下，需要正确配置mycat.yml，cluster.yml，balancer.yml
 
-2. 配置完成后，按照第三步的方式依次启动各个节点的mycat，将自动进行集群管理
-
-### 5. 注解使用
-
-注解支持两种格式   
-1. `/* mycat: */           用于mybatis、hibernate、jdbc 等程序  使用。`
-2. `/*! mycat: */          用于  命令行 及客户端工具使用。`
-
-因为 /* mycat: */   格式注解  会被命令行及客户端工具过滤掉，不会发送给mycat server。所以，在命令行及客户端工具中使用注解时，可以使用第二种注解。
-
-1. 读写分离注解
-
-   `/* mycat:balance type=master/slave */ `
-
-   `/*! mycat:balance type=master/slave */`
-
-2. 结果集缓存注解
-
-   `/* mycat:cacheresult  cache_time=1800 auto_refresh=true access_count=60 */`
-
-   `/*! mycat:cacheresult  cache_time=1800 auto_refresh=true access_count=60 */`
-
-### 6.管理命令
-
-已实现的管理命令为 mysql主从切换管理命令。可以在命令行、客户端工具 及程序中调用。
-
-命令格式为：`mycat switch repl  name  index;`
-
-  
+2. 配置完成后，按照第三步的方式依次启动各个节点的mycat，将自动进行集群管理  
