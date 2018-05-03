@@ -2,7 +2,7 @@
 
 ## 1. Eclipse中安装code style配置
 
-- 第零步：下载 eclipse-java-google-style.xml 
+- 第零步：下载 [eclipse-java-google-style.xml](https://github.com/MyCATApache/Mycat2/blob/master/doc/codestyle/eclipse-java-google-style.xml) 
 
 - 第一步：往Eclipse导入下载的xml文件
 
@@ -29,7 +29,7 @@ Window->Preferences->Java->Editor-Save Actions,如下图选中Format edited line
 
 ## 2. Intellij IDEA 中安装code style 配置
 
-- 第零步：下载 intellij-java-google-style.xml 
+- 第零步：下载 [intellij-java-google-style.xml](https://github.com/MyCATApache/Mycat2/blob/master/doc/codestyle/intellij-java-google-style.xml) 
 
 - 第一步：往intellij导入下载的xml文件
 
